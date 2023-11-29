@@ -43,9 +43,9 @@ jobs:
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
       
       - name: az bicep deploy
-        working-directory: ${{GITHUB_WORKSPACE/src/}}
+        working-directory: '${{github.workspace}}/src/'
         run: |
-        az deployment group create --resource-group bicep-dev-eus-rg --template-file ./storage.bicep
+          az deployment group create --resource-group bicep-dev-eus-rg --template-file ./storage.bicep
          
 
       
