@@ -22,6 +22,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
@@ -34,3 +35,12 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      # Run Azure Login Script
+      - name: Azure Login
+        uses: Azure/login@v1.5.0
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{secrets.AZURE_SPN_CREDENTIAL}}
+         
+
+      
