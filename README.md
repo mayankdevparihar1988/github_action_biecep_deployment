@@ -23,3 +23,7 @@ az ad sp create-for-rbac
 az role assignment create --assignee $appId  --role contributor
 
 ```
+
+```bash 
+az ad sp create-for-rbac -n my-biecp-credintial --role Contributor --scopes /subscriptions/0ec3119b-cded-4f46-9ee6-73b6016116ba/resourceGroups/bicep-dev-eus-rg --sdk-auth
+```
