@@ -8,7 +8,7 @@ Sample for github action deployment
 ```bash
  az ad sp create-for-rbac --name "github-az-bicep-spn" \
                          --role contributor \
-                         --scopes /subscriptions/0ec3119b-cded-4f46-9ee6-73b6016116ba/resourceGroups/bicep-dev-eus-rg
+                         --scopes /subscriptions/0ec3119b-cded-4f46-9ee6-73b60kkkkka/resourceGroups/bicep-dev-eus-rg
 ```
 
 * Create RBAC WITHOUT ROLE ASSIGNEMET
@@ -25,5 +25,5 @@ az role assignment create --assignee $appId  --role contributor
 ```
 
 ```bash 
-az ad sp create-for-rbac -n my-biecp-credintial --role Contributor --scopes /subscriptions/0ec3119b-cded-4f46-9ee6-73b6016116ba/resourceGroups/bicep-dev-eus-rg --sdk-auth
+az ad sp create-for-rbac -n my-biecp-credintial --role Contributor --scopes /subscriptions/0ec3119b-cded-4f46-9ee6-73b601kkkkba/resourceGroups/bicep-dev-eus-rg --sdk-auth
 ```
