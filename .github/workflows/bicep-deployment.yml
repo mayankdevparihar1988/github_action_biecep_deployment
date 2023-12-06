@@ -41,7 +41,7 @@ jobs:
       - name: az bicep build
         working-directory: '${{github.workspace}}/infrastructure/'
         run: |
-         az bicep build --file storage.bicep --outdir outputInfra
+         az bicep build --file storage.bicep --outdir out
 
   #  # This workflow contains a single job called "build"
   # deploy:
