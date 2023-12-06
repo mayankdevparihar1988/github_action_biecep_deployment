@@ -16,7 +16,7 @@ jobs:
     build_docker:
       name: Build Docker
       # The type of runner that the job will run on
-      runs-on: [self-hosted, csg]
+      runs-on: ubuntu-latest
   
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
