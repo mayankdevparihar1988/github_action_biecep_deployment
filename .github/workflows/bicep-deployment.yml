@@ -49,7 +49,17 @@ jobs:
            path: |
              ./infrastructure/
              !./infrastructure/ResourceModules
+      
+      - uses: actions/download-artifact@master
+        with:
+          name: infrastructure
+          path: ./infrastructure
 
+      - name: '🛫 Azure Resource Deployment ECHO'
+        working-directory: '${{github.workspace}}/infrastructure/'
+        run: |
+            cat storage.json | echo
+          
   #  # This workflow contains a single job called "build"
   # deploy:
   #   # The type of runner that the job will run on
