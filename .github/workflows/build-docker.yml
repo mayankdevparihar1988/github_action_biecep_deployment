@@ -33,3 +33,4 @@ jobs:
               echo "DOCKER_REPOSITORY=${{ github.repository }}"
               echo "DOCKER_EVENT_NAME=${{ github.event_name }}"
               echo "DOCKER_COMMIT_SHA=${{ github.sha }}"
+              echo "Test inherited variable ${{env.testInheritVariable}}"
