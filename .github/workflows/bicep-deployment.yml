@@ -35,6 +35,9 @@ jobs:
         run: |
           echo "My Variable Value: ${{ steps.set_variable.outputs.my_variable }}"
 
+      - name: Create Output Directory
+        run: mkdir -p outputInfra
+
       - name: az bicep build
         working-directory: '${{github.workspace}}/infrastructure/'
         run: |
