@@ -1,0 +1,38 @@
+name: 'Build & Deployment'
+
+# Controls when the workflow will run
+on:
+    # Triggers the workflow on push events but only for the "main" branch
+    push:
+      branches: [ "main", "feature/*" ]
+
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+env:
+    testInheritVariable: the test variable
+
+
+jobs: 
+    job_docker_build:
+        name: 'Docker Build'
+        uses: ./.github/workflows/build-docker.yml
+        secrets: inherit
+        
+    job_arm_build:
+        name: 'Bicep Build'
+        uses: ./.github/workflows/bicep-deployment.yml
+        secrets: inherit
+    
+    # job_k8s_deploy_dev:        
+    #     needs: 
+    #       - job_docker_build
+    #       - job_arm_build
+    #     name: 'Deploy Dev'
+    #     uses: ./.github/workflows/deploy.yml
+    #     secrets: 
+    #       credentials: ${{ secrets.MY_SECRET }}
+    #     with:
+    #       valueFile: values.yaml
+    #       environment: 'dev'
+    #       resourceGroupName: 'f-we-dev-test'
+    #       parameterFile: main.parameters.dev.json

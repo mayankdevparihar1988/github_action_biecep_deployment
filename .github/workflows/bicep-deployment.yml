@@ -4,11 +4,8 @@ name: azure bicep deployment
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # Trigger via other workflow
+  workflow_call:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -57,7 +54,9 @@ jobs:
 
       - name: '🛫 Azure Resource Deployment ECHO'
         working-directory: '${{github.workspace}}/infrastructure/'
-        run: ls -a 
+        run: |
+           ls -a 
+           cat storage.json
           
   #  # This workflow contains a single job called "build"
   # deploy:

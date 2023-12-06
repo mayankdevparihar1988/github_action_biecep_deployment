@@ -1,0 +1,35 @@
+name: Build container
+
+# Controls when the workflow will run
+on:
+    workflow_dispatch: {}
+    workflow_call:
+        
+
+env:
+  containerRegistry: test.azurecr.io
+  GITHUB_WORKFLOW_RUN_ID: "${{ github.run_id }}.${{ github.run_number }}" ## used for container image tag
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    # This workflow contains a single job called "build"
+    build_docker:
+      name: Build Docker
+      # The type of runner that the job will run on
+      runs-on: [self-hosted, csg]
+  
+      # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        - name: 'Checkout'
+          uses: actions/checkout@v3
+
+       # Test enviornment variables  
+        - name: ECHO ENV VARIABLE
+          shell: bash
+          run: |
+              echo " GITHUB_WORKFLOW_RUN_ID: ${{ github.run_id }}.${{ github.run_number }}"
+              echo "Container registry URL ${{env.containerRegistry}}"
+              echo "DOCKER_WORKFLOW_JOB_ID=${{ github.job }}"
+              echo "DOCKER_REPOSITORY=${{ github.repository }}"
+              echo "DOCKER_EVENT_NAME=${{ github.event_name }}"
+              echo "DOCKER_COMMIT_SHA=${{ github.sha }}"
