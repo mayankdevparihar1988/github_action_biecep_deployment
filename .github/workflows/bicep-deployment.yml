@@ -26,15 +26,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
       # Run Azure Login Script
       - name: Azure Login
         uses: Azure/login@v1.5.0
@@ -42,10 +33,19 @@ jobs:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
       
-      - name: az bicep deploy
-        working-directory: '${{github.workspace}}/src/'
+      - name: Set Variable
+        id: set_variable
         run: |
-          az deployment group create --what-if --resource-group bicep-dev-eus-rg --template-file ./storage.bicep
+            echo "##[set-output name= ${{ secrets.AZURE_SPN_CREDENTIAL }}] This is my variable content"
+      
+      - name: Echo Variable
+        run: |
+          echo "My Variable Value: ${{ steps.set_variable.outputs.my_variable }}"
+
+      - name: az bicep build
+        working-directory: '${{github.workspace}}/infrastructure/'
+        run: |
+         az bicep build --file storage.bicep --outdir ./outputInfra
 
    # This workflow contains a single job called "build"
   deploy:
@@ -75,10 +75,11 @@ jobs:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
       
-      - name: az bicep deploy
-        working-directory: '${{github.workspace}}/src/'
-        run: |
-          az deployment group create --resource-group bicep-dev-eus-rg --template-file ./storage.bicep
+      # - name: az bicep deploy
+      #   working-directory: '${{github.workspace}}/infrastructure/'
+      #   run: |
+      #     az deployment group create --resource-group bicep-dev-eus-rg --template-file ./storage.bicep'
+      
          
 
       
