@@ -42,6 +42,15 @@ jobs:
         working-directory: '${{github.workspace}}/infrastructure/'
         run: |
          az bicep build --file storage.bicep
+         - run: az bicep build --file ./infrastructure/main.bicep --outdir ./infrastructure
+         name: '🏗️ Build Bicep File'
+       
+      - uses: actions/upload-artifact@v3
+        with:
+           name: infrastructure
+           path: |
+             ./infrastructure/
+             !./infrastructure/ResourceModules
 
   #  # This workflow contains a single job called "build"
   # deploy:
