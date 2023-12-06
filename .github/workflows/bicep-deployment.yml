@@ -57,8 +57,7 @@ jobs:
 
       - name: '🛫 Azure Resource Deployment ECHO'
         working-directory: '${{github.workspace}}/infrastructure/'
-        run: |
-            cat storage.json | echo
+        run: ls -a 
           
   #  # This workflow contains a single job called "build"
   # deploy:
