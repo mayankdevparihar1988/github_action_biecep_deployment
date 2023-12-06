@@ -30,7 +30,7 @@ jobs:
         name: 'Deploy Dev'
         uses: ./.github/workflows/deploy.yml
         secrets: 
-          credentials: ${{ env.testInheritVariable }}
+          credentials: ${{ secrets.testInheritVariable }}
         with:
           valueFile: values.yaml
           environment: 'dev'
