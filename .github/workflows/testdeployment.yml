@@ -23,16 +23,16 @@ jobs:
         uses: ./.github/workflows/bicep-deployment.yml
         secrets: inherit
     
-    # job_k8s_deploy_dev:        
-    #     needs: 
-    #       - job_docker_build
-    #       - job_arm_build
-    #     name: 'Deploy Dev'
-    #     uses: ./.github/workflows/deploy.yml
-    #     secrets: 
-    #       credentials: ${{ secrets.MY_SECRET }}
-    #     with:
-    #       valueFile: values.yaml
-    #       environment: 'dev'
-    #       resourceGroupName: 'f-we-dev-test'
-    #       parameterFile: main.parameters.dev.json
+    job_k8s_deploy_dev:        
+        needs: 
+          - job_docker_build
+          - job_arm_build
+        name: 'Deploy Dev'
+        uses: ./.github/workflows/deploy.yml
+        secrets: 
+          credentials: ${{ env.testInheritVariable }}
+        with:
+          valueFile: values.yaml
+          environment: 'dev'
+          resourceGroupName: 'f-we-dev-test'
+          parameterFile: main.parameters.dev.json

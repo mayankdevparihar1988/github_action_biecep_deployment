@@ -1,0 +1,43 @@
+name: 'Deploy to Kubernetes'
+
+on: 
+    workflow_call:
+      secrets: 
+        credentials: 
+          required: true
+      inputs: 
+        resourceGroupName:
+          type: string
+          required: true          
+        valueFile: 
+          type: string
+          required: true
+        parameterFile:
+          type: string
+          required: true
+        environment:
+          required: true
+          type: string
+env:
+    KUBECTL_VERSION: 1.26.3
+    HELM_VERSION: 3.12.0
+    GITHUB_WORKFLOW_RUN_ID: "${{ github.run_id }}.${{ github.run_number }}" ## used for container image tag
+        
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    # This workflow contains a single job called "build"
+    deploy:
+      # The type of runner that the job will run on
+      runs-on: [self-hosted, csg, mb-csg-fbkosmos]
+      environment: ${{ inputs.environment }}
+     # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        - name: ECHO ALL THE INPUTS"
+          run: |
+            echo " GITHUB_WORKFLOW_RUN_ID: ${{ github.run_id }}.${{ github.run_number }}"
+            echo "RESOURCE GROUP NAME ${{inputs.resourceGroupName}}"
+            echo "VALUE FILES ${{inputs.valueFile}}"
+            echo "PARAMETERFILES ${{inputs.parameterFile}}"
