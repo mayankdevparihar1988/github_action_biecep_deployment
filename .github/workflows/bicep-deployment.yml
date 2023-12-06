@@ -25,13 +25,6 @@ jobs:
       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Run Azure Login Script
-      - name: Azure Login
-        uses: Azure/login@v1.5.0
-        with:
-          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-          creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
       
       - name: Set Variable
         id: set_variable
