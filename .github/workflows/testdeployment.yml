@@ -16,7 +16,7 @@ env:
 jobs: 
     
     job_docker_build:
-      runs-on: ubuntu-latest
+      runs-on: windows-latest
       steps:
          - name: 'Docker Build'
            run: dotnet nuget add source ${{ env.NUGET_ENDPOINT }} --name ${{ env.NUGET_FEED_NAME }} --username az --password 7aqdjtbscxnufd472ejhcq3pyvoni6ydnv7vjqldf7eebotwltuq
