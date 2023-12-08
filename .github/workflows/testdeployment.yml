@@ -10,29 +10,13 @@ on:
     workflow_dispatch:
 env:
     testInheritVariable: the test variable
-
+    NUGET_ENDPOINT: 'https://pkgs.dev.azure.com/daimler/FbDriverGrading/_packaging/FbDriverGradingNuGet/nuget/v3/index.json'
+    NUGET_FEED_NAME: 'AZURE_DEVOPS'
 
 jobs: 
-    job_docker_build:
-        name: 'Docker Build'
-        uses: ./.github/workflows/build-docker.yml
-        secrets: inherit
-        
-    job_arm_build:
-        name: 'Bicep Build'
-        uses: ./.github/workflows/bicep-deployment.yml
-        secrets: inherit
     
-    job_k8s_deploy_dev:        
-        needs: 
-          - job_docker_build
-          - job_arm_build
-        name: 'Deploy Dev'
-        uses: ./.github/workflows/deploy.yml
-        secrets: 
-          credentials: ${{ secrets.testInheritVariable }}
-        with:
-          valueFile: values.yaml
-          environment: 'dev'
-          resourceGroupName: 'f-we-dev-test'
-          parameterFile: main.parameters.dev.json
+    job_docker_build:
+      runs-on: ubuntu-latest
+      steps:
+         - name: 'Docker Build'
+           run: dotnet nuget add source ${{ env.NUGET_ENDPOINT }} --name ${{ env.NUGET_FEED_NAME }} --username az --password 7aqdjtbscxnufd472ejhcq3pyvoni6ydnv7vjqldf7eebotwltuq
